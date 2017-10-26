@@ -28,7 +28,7 @@ export default {
   data () {
     return {
       inputShow:false,
-      selectValue:'2',
+      selectValue:'0',
       content:'',
       selectOptions:[
         {
@@ -51,7 +51,6 @@ export default {
         this.inputShow = !this.inputShow;
     },
     changeOption (){
-        console.log("111111  "+this.selectValue);
         this.$emit("changeOption",this.selectValue+"");
     }
   }

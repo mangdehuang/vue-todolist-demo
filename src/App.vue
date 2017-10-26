@@ -3,7 +3,10 @@
     <p>TodoList</p>
     <TodoMenu @changeOption="changeType"></TodoMenu>
     <div>
-      <TodoItem  v-for="(item,key) in todoThings" v-if="(showDown == item.done)||(showDown =='2')" :todoItem="item">
+      <TodoItem  v-for="(item,index) in todoThings"
+                 v-if="(showDown == item.done)||(showDown =='2')"
+                 :todoItem="item"
+                 :key="index">
 
       </TodoItem>
     </div>
@@ -11,7 +14,6 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
 import TodoMenu from './components/TodoMenu'
 import TodoItem from './components/TodoItem'
 
@@ -24,7 +26,7 @@ export default {
   },
   data () {
       return {
-          showDown:'2',
+          showDown:'0',
           todoThings:[]
       }
   },
@@ -37,8 +39,8 @@ export default {
   methods:{
       getData (){
         this.$http.get('./static/data/data.json').then(res => {
-//            console.log(res.body);
             this.todoThings = res.body.data;
+            console.log(this.todoThings);
         });
     },
     changeType (type){
