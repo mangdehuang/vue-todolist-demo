@@ -3,13 +3,14 @@
     <el-row>
       <el-col :span="24" class="todo-item">
         <div class="grid-content bg-purple-dark height100">
-          <el-col :span="14" class="height100 todo-content">
+          <el-col :span="12" class="height100 todo-content">
             <div class="left msg-pos">
               <span>{{content}}</span>
             </div>
           </el-col>
-          <el-col :span="4" class="height100"><i class="state-icon base-icon" :class="doneClass" @click="changeState"></i></el-col>
-          <el-col :span="6" class="todo-time height100">{{createDate}}</el-col>
+          <el-col :span="3" class="height100"><i class="state-icon base-icon" :class="doneClass" @click="changeState"></i></el-col>
+          <el-col :span="6" class="todo-time height100 red state-icon">{{createDate}}</el-col>
+          <el-col :span="3" class="height100"><i class="el-icon-circle-close state-icon base-icon" @click="delItem"></i></el-col>
         </div>
       </el-col>
     </el-row>
@@ -55,6 +56,9 @@ export default {
 //      }
       this.done = '1';
       this.$emit("changeState",this.todoItem);
+    },
+    delItem (){
+        this.$emit('delItem',this.todoItem);
     }
   }
 }

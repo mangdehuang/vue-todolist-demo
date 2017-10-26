@@ -7,7 +7,7 @@
                  v-if="(showDown == item.done)||(showDown =='2')"
                  :todoItem="item"
                  :todoIndex="index"
-                 :key="index" @changeState="changeState1">
+                 :key="index" @changeState="changeState1" @delItem="delItem">
       </TodoItem>
     </div>
   </div>
@@ -50,12 +50,15 @@ export default {
         let item = {};
         item.content = content;
         item.done = '0';
-        item.date = 'time1';
+        item.date = (new Date()).getTime();
         this.todoThings.push(item);
     },
     changeState1 (item){
       item.done = util.change01(item.done)+"";
       this.$set(this.todoThings[item.index],item.index,item);
+    },
+    delItem(item){
+      this.todoThings.splice(item.index,1);
     }
   }
 }
@@ -85,5 +88,8 @@ export default {
   }
   .base-icon:hover{
     cursor: pointer;
+  }
+  .red{
+    color:red;
   }
 </style>
