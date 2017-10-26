@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <p>TodoList</p>
-    <TodoMenu @changeOption="changeType"></TodoMenu>
+    <TodoMenu @changeOption="changeType" @needAddItem="addItem"></TodoMenu>
     <div>
       <TodoItem  v-for="(item,index) in todoThings"
                  v-if="(showDown == item.done)||(showDown =='2')"
                  :todoItem="item"
-                 :key="index">
-
+                 :todoIndex="index"
+                 :key="index" @changeState="changeState1">
       </TodoItem>
     </div>
   </div>
@@ -16,11 +16,11 @@
 <script>
 import TodoMenu from './components/TodoMenu'
 import TodoItem from './components/TodoItem'
+import util from './components/util'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld,
     TodoMenu,
     TodoItem
   },
@@ -37,15 +37,25 @@ export default {
       });
   },
   methods:{
-      getData (){
+    getData (){
         this.$http.get('./static/data/data.json').then(res => {
             this.todoThings = res.body.data;
-            console.log(this.todoThings);
+//            console.log(this.todoThings);
         });
     },
     changeType (type){
         this.showDown = type;
-        console.log(type);
+    },
+    addItem (content){
+        let item = {};
+        item.content = content;
+        item.done = '0';
+        item.date = 'time1';
+        this.todoThings.push(item);
+    },
+    changeState1 (item){
+      item.done = util.change01(item.done)+"";
+      this.$set(this.todoThings[item.index],item.index,item);
     }
   }
 }
@@ -72,5 +82,8 @@ export default {
   }
   .height100{
     height: 100%;
+  }
+  .base-icon:hover{
+    cursor: pointer;
   }
 </style>

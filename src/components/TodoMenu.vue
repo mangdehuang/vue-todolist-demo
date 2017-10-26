@@ -3,20 +3,20 @@
     <el-row>
       <el-col :span="24">
         <div class="grid-content bg-purple-dark height100">
-          <el-select v-model="selectValue" class="left small" @change="changeOption">
+          <el-select v-model="selectValue" class="left small" @change="changeOption" >
             <el-option v-for="item in selectOptions"
                        :key = "item.key"
                        :label = "item.label"
                        :value = "item.value"
                        placeholder="请选择"></el-option>
           </el-select>
-          <i class="el-icon-plus right add-icon" @click="showInput"></i>
+          <i class="el-icon-plus right add-icon base-icon" @click.stop="showInput"></i>
         </div>
       </el-col>
     </el-row>
     <el-row v-if="inputShow" class="todo-input">
       <el-col :span="24">
-        <el-input  v-model="content" placeholder="请输入内容"></el-input>
+        <el-input  v-model="content" placeholder="请输入内容" @keyup.enter.native="addItem" @click.native.stop=""></el-input>
       </el-col>
     </el-row>
   </div>
@@ -46,13 +46,24 @@ export default {
       ],
     }
   },
+  created(){
+    document.addEventListener('click',(e) => {
+          this.inputShow = false;
+    });
+  },
   methods:{
     showInput (){
         this.inputShow = !this.inputShow;
     },
     changeOption (){
         this.$emit("changeOption",this.selectValue+"");
-    }
+    },
+    addItem (){
+//      console.log(this.content);
+        this.inputShow = false;
+        this.$emit("needAddItem",this.content);
+        this.content = '';
+    },
   }
 }
 </script>
@@ -72,9 +83,6 @@ export default {
   .add-icon{
     margin: 10px 10px 0 0 ;
     color: #819298;
-  }
-  .add-icon:hover{
-    cursor: pointer;
   }
   .TodoMenu{
     position: relative;
