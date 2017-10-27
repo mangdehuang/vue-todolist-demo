@@ -18,8 +18,6 @@
 </template>
 
 <script>
-
-
   import util from '../components/util'
 
 export default {
@@ -54,7 +52,7 @@ export default {
 //      if (event) {
 //        console.log(event.target.tagName)
 //      }
-      this.done = '1';
+      this.done = util.change01(this.done);
       this.$emit("changeState",this.todoItem);
     },
     delItem (){

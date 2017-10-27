@@ -7,7 +7,7 @@
                  v-if="(showDown == item.done)||(showDown =='2')"
                  :todoItem="item"
                  :todoIndex="index"
-                 :key="index" @changeState="changeState1" @delItem="delItem">
+                 :key="index" @changeState="changeState" @delItem="delItem">
       </TodoItem>
     </div>
   </div>
@@ -53,7 +53,7 @@ export default {
         item.date = (new Date()).getTime();
         this.todoThings.push(item);
     },
-    changeState1 (item){
+    changeState (item){
       item.done = util.change01(item.done)+"";
       this.$set(this.todoThings[item.index],item.index,item);
     },
