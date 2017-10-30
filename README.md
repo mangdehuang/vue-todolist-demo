@@ -12,6 +12,20 @@ npm install
 npm run dev
 
 ```
+## todolist的基本实现
+
+筛选完成 未完成 全部
+
+添加一个todoitem
+
+修改已做/未做状态
+
+删除某一条记录
+
+## 控件
+element-ui
+vue-resource
+
 ### 注意
 在v-for中指定key
 ```
