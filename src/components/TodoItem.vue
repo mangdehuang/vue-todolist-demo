@@ -26,12 +26,8 @@ export default {
     return {
     }
   },
-//  mounted(){
-//    this.todoItem.index = this.todoIndex;
-//  },
   props:{
     todoItem:{},
-//    todoIndex:{}
   },
   computed:{
     doneClass(){
