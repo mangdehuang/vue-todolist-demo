@@ -34,3 +34,6 @@ vue-resource
 component lists rendered with v-for should have explicit keys. See https://vuejs.org/guide/list.html#key for more info. 
 (found in <Root>)
 ```
+- 数组的查找中不用index 作为key 使用date为key 进行查找删除
+- 如果父组件给子组件的是数组或者对象  修改子组件会同时修改父组件
+- 官方不建议使用子组件直接修改父组件  用$emit 最好

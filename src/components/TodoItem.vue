@@ -5,7 +5,7 @@
         <div class="grid-content bg-purple-dark height100">
           <el-col :span="12" class="height100 todo-content">
             <div class="left msg-pos">
-              <span>{{content}}</span>
+              <span>{{this.todoItem.content}}</span>
             </div>
           </el-col>
           <el-col :span="3" class="height100"><i class="state-icon base-icon" :class="doneClass" @click="changeState"></i></el-col>
@@ -24,36 +24,29 @@ export default {
   name: 'TodoItem',
   data () {
     return {
-      done:'0',
-      content:'',
-      createDate:'',
     }
   },
+//  mounted(){
+//    this.todoItem.index = this.todoIndex;
+//  },
   props:{
     todoItem:{},
-    todoIndex:{}
-  },
-  mounted(){
-      let _this = this;
-      this.$nextTick(() => {
-        _this.done = _this.todoItem.done;
-        _this.content = _this.todoItem.content;
-        _this.createDate = util.getMMDDHHmmbyMil(_this.todoItem.date);
-        _this.todoItem.index = _this.todoIndex;
-      });
+//    todoIndex:{}
   },
   computed:{
     doneClass(){
-      return parseInt(this.done) ? 'el-icon-star-on':'el-icon-star-off';
+      return parseInt(this.todoItem.done) ? 'el-icon-star-on':'el-icon-star-off';
+    },
+    createDate(){
+      return util.getMMDDHHmmbyMil(this.todoItem.date);;
     }
   },
   methods:{
-    changeState (event){
+    changeState(event){
 //      if (event) {
 //        console.log(event.target.tagName)
 //      }
-      this.done = util.change01(this.done);
-      this.$emit("changeState",this.todoItem);
+      this.todoItem.done = util.change01(this.todoItem.done)+'';
     },
     delItem (){
         this.$emit('delItem',this.todoItem);

@@ -6,8 +6,7 @@
       <TodoItem  v-for="(item,index) in todoThings"
                  v-if="(showDown == item.done)||(showDown =='2')"
                  :todoItem="item"
-                 :todoIndex="index"
-                 :key="index" @changeState="changeState" @delItem="delItem">
+                 :key="index" @delItem="delItem">
       </TodoItem>
     </div>
   </div>
@@ -40,7 +39,6 @@ export default {
     getData (){
         this.$http.get('./static/data/data.json').then(res => {
             this.todoThings = res.body.data;
-//            console.log(this.todoThings);
         });
     },
     changeType (type){
@@ -53,12 +51,15 @@ export default {
         item.date = (new Date()).getTime();
         this.todoThings.push(item);
     },
-    changeState (item){
-      item.done = util.change01(item.done)+"";
-      this.$set(this.todoThings[item.index],item.index,item);
-    },
     delItem(item){
-      this.todoThings.splice(item.index,1);
+        let index = 0;
+        for(var i in this.todoThings){
+            if(this.todoThings[i].date == item.date){
+              index = i;
+              break;
+            }
+        }
+      this.todoThings.splice(index,1);
     }
   }
 }
